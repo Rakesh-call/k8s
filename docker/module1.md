@@ -122,4 +122,4 @@ To decide which architecture to use, engineers compare them across several criti
 
 ### Ready for the next step?
 
-This completes the theoretical foundation. When you are ready to transition to command-line practice, give me the next concept (e.g., *Installing Docker & Architecture*, *Docker Images*, or *Docker Containers*) and we will jump back into hands-on labs!
+
