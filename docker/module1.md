@@ -98,12 +98,14 @@ To decide which architecture to use, engineers compare them across several criti
 > 
 > 
 > **Problem:** A company spends $20,000/month running 50 microservices, each sitting inside its own small cloud VM. Most of these VMs use less than 5% of their allocated CPU.
+
 > **Solution:** By migrating to containers, they consolidate all 50 microservices onto just 3 large VMs running a container orchestrator (like Kubernetes). Their cloud bill drops by 70%.
 
 > ### Scenario B: The Production Configuration Nightmare
 > 
 > 
 > **Problem:** A developer writes code using Node.js v18 on macOS. The QA engineer tests it on a server running Node.js v16. The production server runs Node.js v20. The application breaks in production due to minor version differences.
+
 > **Solution:** The application is packaged into a Docker container with Node.js v18 frozen inside it. The developer, QA, and Production environment all run the *exact same container image*, eliminating environment mismatch errors entirely.
 
 ---
