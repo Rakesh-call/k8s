@@ -14,6 +14,7 @@ A **Dockerfile** is a text-based configuration script containing a sequential li
 To understand Dockerfiles in the real world, think of them as an **automated recipe** or a "Configuration as Code" script. Instead of manually launching a container, installing packages, configuring files, and committing the state, you write a Dockerfile. The Docker client passes this file to the Docker Daemon via the `docker build` command, and the daemon builds each step into an unchangeable, reusable image layer.
 
 ---
+
 <br>
 
 ```
@@ -57,6 +58,68 @@ To understand Dockerfiles in the real world, think of them as an **automated rec
 <br>
 ---
 
+
+---
+
+## 🏗️ Phase 1: The Image Build Phase
+
+These instructions run **only once** (when you type `docker build`). Their job is to download software, copy files, and bake them permanently onto your hard drive as a read-only blueprint (the Image).
+
+* **`FROM` (The Foundation):** This is always step one. It chooses your starting point, like a clean, blank slate of Linux (e.g., Ubuntu or Alpine).
+
+
+
+
+* **`RUN` (The Installer):** This runs installation commands. If you need Python, Git, or updates, `RUN apt-get install` bakes them directly into the image. Once the build finishes, `RUN` never executes again.
+
+
+
+
+* **`COPY` & `ADD` (The Shippers):** These take files (like your source code or configuration files) from your personal laptop and paste them inside the image template.
+
+
+
+
+* **`WORKDIR` (The Anchor):** This sets the default folder inside the image where all your files will live. It stops you from getting lost in a mess of different folders.
+
+---
+
+## 🏃 Phase 2: The Container Running Phase
+
+These instructions do **nothing** during the build phase. They are just written down like rules in a manual. They wake up only when you type `docker run` to turn your static image into a living, breathing application process in your computer's memory.
+
+* **`ENTRYPOINT` & `CMD` (The Ignition System):** These define the exact command that starts up your application when the container turns on.
+* `ENTRYPOINT` is the main software you want to run (e.g., `python`).
+* `CMD` provides the default arguments for that software (e.g., `server.js`). You can easily change or override `CMD` from your computer's terminal when you boot the container.
+
+
+
+
+
+
+* **`EXPOSE` (The Map):** This is just text documentation. It tells developers, "Hey, this app inside the container is listening for internet traffic on Port 3000." It doesn't actually open the port; you still have to open it yourself using the `-p` flag at runtime.
+
+
+
+
+* **`USER` (The Security Guard):** By default, containers run as `root` (the supreme administrator). `USER` forces the container to run as a restricted, normal user profile so an external hacker can't take over your entire system if they find a loophole in your application.
+
+
+
+
+* **`HEALTHCHECK` (The Heart Monitor):** Once your container is running, this instruction loops in the background every few seconds to ask the application, "Are you working properly?" If the application freezes, it alerts Docker so the system can restart it automatically.
+
+---
+
+## 🌉 The Bridge Instruction
+
+* **`ENV` (Environment Variables):** This instruction works in **both phases**. You use it to define settings (like `DB_URL=my-database-link`).
+* During the **Build Phase**, your compilers can look at this setting to build the app.
+* During the **Running Phase**, your active application reads it from memory to know where to connect.
+
+
+
+---
 
 
 ---
