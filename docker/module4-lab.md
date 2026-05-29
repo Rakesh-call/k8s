@@ -175,4 +175,3 @@ docker exec prod-web nginx -v
 
 ### Ready for the next module?
 
-Whenever you are ready, let me know what topic we are tackling next (such as **Docker Storage: Volumes & Bind Mounts**, **Docker Networking**, or **Writing Dockerfiles**) and we will generate the next complete learning guide and master lab!
