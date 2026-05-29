@@ -14,6 +14,52 @@ A **Dockerfile** is a text-based configuration script containing a sequential li
 To understand Dockerfiles in the real world, think of them as an **automated recipe** or a "Configuration as Code" script. Instead of manually launching a container, installing packages, configuring files, and committing the state, you write a Dockerfile. The Docker client passes this file to the Docker Daemon via the `docker build` command, and the daemon builds each step into an unchangeable, reusable image layer.
 
 ---
+<br>
+
+```
+                       +-----------------------------------+
+                       |    DOCKERFILE INSTRUCTIONS MAP    |
+                       +-----------------------------------+
+                                         |
+         +-------------------------------+-------------------------------+
+         |                                                               |
+         v                                                               v
++----------------------------------+                            +----------------------------------+
+|      IMAGE BUILD PHASE           |                            |     CONTAINER RUNNING PHASE      |
+|  (Executes once to create layer) |                            |  (Executes every time container) |
++----------------------------------+                            +----------------------------------+
+         |                                                               |
+         |---> FROM                                                      |---> CMD
+         |     - Pulls base blueprint.                                   |     - Sets default arguments.
+         |     - Becomes foundation layer.                               |     - Easily overwritten at runtime.
+         |                                                               |
+         |---> RUN                                                       |---> ENTRYPOINT
+         |     - Executes compilation/installs.                          |     - Sets unchangeable executable.
+         |     - Commits permanent layer to disk.                        |     - Treats container like a binary.
+         |                                                               |
+         |---> COPY / ADD                                                |---> EXPOSE
+         |     - Ingests files from host disk.                           |     - Documents runtime network port.
+         |     - ADD decompresses tars / URLs.                           |     - Requires '-p' flag to activate.
+         |                                                               |
+         |---> WORKDIR                                                   |---> HEALTHCHECK
+         |     - Creates build directory wrapper.                        |     - Periodically tests process life.
+         |     - Persists as execution target.                           |     - Changes state to (healthy).
+         |                                                               |
+         |---> ENV (Persisted State)                                     |---> USER
+         |     - Injects build-time properties.  ====================>   |     - Drops root admin privileges.
+         |                                                               |     - Implements runtime security.
+         +---------------------------------------------------------------+
+
+```
+
+---
+
+<br>
+---
+
+
+
+---
 
 ## 2. In-Depth Instruction Reference
 
