@@ -325,12 +325,8 @@ Distroless -> Security-focused Production
               where only the application should run
 
 
-
-
-
-
-
 ---------------------------------------------------------------------------------
+
 
                  Development                Production
                        |                         |
@@ -343,6 +339,14 @@ Distroless -> Security-focused Production
       curl, wget         lightweight   only app + runtime files
 
 ```
+
+---
+
+The Core Idea
+
+Build with a large image that contains all development tools, then run with the smallest image possible that contains only what the application needs to execute. Alpine is often chosen for lightweight operations, while Distroless is chosen for maximum security and minimal footprint in production.
+
+---
 
 </div>
 
