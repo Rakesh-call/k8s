@@ -276,6 +276,33 @@ Alpine Linux is a security-oriented, lightweight Linux distribution based on `mu
 * **The Advantage:** A raw Alpine base image is only **5MB** in size compared to an Ubuntu base image which sits around 75MB+.
 * **The Caveat:** Because it uses `musl libc` instead of the traditional Linux `glibc`, certain Python, C++, or Node compiled libraries may throw compilation errors unless specific build-essential packages are explicitly installed.
 
+Mindmap of (g libc & musl libc)
+
+<div align="center">
+
+```text
+Application
+
+      |
+      v
+Language Runtime
+(Python/Node/Java/etc)
+      |
+      v
+libc
+(glibc or musl)
+
+      |
+      v
+Linux Kernel
+      |
+      v
+CPU + Memory + Disk
+```
+
+</div>
+
+
 ### Using Distroless Images
 
 Distroless images, created by Google, take optimization to the extreme. They contain **only your application and its runtime dependencies**.
