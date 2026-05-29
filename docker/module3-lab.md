@@ -1,4 +1,3 @@
-
 ---
 
 # 🏆 Practical Lab: The Automated Self-Healing Web App & Disaster Recovery Simulation
@@ -35,8 +34,6 @@ To complete this lab, you do not need to install anything locally. You can use t
 
 ---
 
----
-
 ## 🛠️ Lab Tasks & Complete Walkthrough Solution
 
 ### Phase 1: Background Deployment & Interactive Testing
@@ -51,6 +48,10 @@ docker pull alpine:latest
 ```
 
 * **Verification:** Running `docker images` shows `alpine` with the tag `latest`.
+
+
+
+
 
 #### **Task 1.2 & 1.3:** Spin up a temporary **Interactive Container** using that image, overriding its default command to open a shell (`sh`). Inside the container shell, navigate to the `/etc` directory, view the contents of the `os-release` file to confirm it's Alpine, and then type `exit` to terminate and destroy the session.
 
@@ -69,6 +70,10 @@ exit
 
 * **Expected Output:** The system prints text containing `NAME="Alpine Linux"` and `ID=alpine`. Typing `exit` kills the container process and returns you to your host terminal.
 
+
+
+
+
 #### **Task 1.4:** Now, deploy the actual payment processor simulation in **Detached Mode**. Name the container `payment-processor`, configure it to **always restart** automatically, and pass a shell script command that simulates a background worker writing timestamps to a log file every second:
 
 ```bash
@@ -77,6 +82,10 @@ docker run -d --name payment-processor --restart always alpine sh -c "mkdir /app
 ```
 
 * **Verification:** The terminal prints a long, unique 64-character alphanumeric string (the Container ID).
+
+
+
+
 
 #### **Task 1.5:** Run a command to list only the *actively running* containers to verify that your background daemon is up and processing.
 
@@ -108,10 +117,12 @@ Processing payment at Thu May 28 20:22:02 UTC 2026
 ```
 
 
+
+```
 * **Action Required:** Press `Ctrl + C` to stop viewing the stream. (The container continues running safely in the background).
+<br>
 
 #### **Task 2.2:** Because the log file `/app/payment.log` is hidden deep inside the container's thin, writable layer, you need to extract a copy of it to your host machine's desktop for the finance audit team *without* stopping or logging into the container shell. Use the `docker cp` command to copy `/app/payment.log` from the running container straight to your host storage.
-
 ```bash
 docker cp payment-processor:/app/payment.log ./Desktop/payment.log
 
@@ -141,6 +152,10 @@ docker ps
 
 * **Expected Output:** The status column will state something like: `Up Less than a second (Restarting)` or `Up 2 seconds`. This proves the `--restart always` policy detected the sudden termination and instantly launched a fresh process instance.
 
+
+
+
+
 #### **Task 3.3:** Inspect the container's metadata using `docker inspect` and locate the specific JSON block that tracks the container's internal state metrics (`State`). Find the count that shows how many times the container has restarted.
 
 ```bash
@@ -166,6 +181,10 @@ docker ps
 
 * **Expected Output:** The container `payment-processor` is immediately visible in `docker ps`. Because it was configured with `--restart always`, the Docker daemon automatically booted the container back up into memory the moment the service initialized.
 
+
+
+
+
 #### **Task 4.3:** Now, simulate a software upgrade deployment where you must delete the old container. Force-stop and completely remove (`docker rm`) the `payment-processor` container.
 
 ```bash
@@ -174,6 +193,10 @@ docker rm -f payment-processor
 ```
 
 * **Verification:** Running `docker ps -a` confirms the container is completely deleted from the system configuration.
+
+
+
+
 
 #### **Task 4.4 & 4.5:** Spin up a brand new container using the exact same command from Task 1.4, naming it `payment-processor` again. Try to view or copy the file `/app/payment.log` from this new container.
 
