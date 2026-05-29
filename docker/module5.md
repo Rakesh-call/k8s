@@ -310,6 +310,42 @@ Distroless images, created by Google, take optimization to the extreme. They con
 * **The Setup:** They do not contain a package manager (no `apt` or `apk`), system shells (no `bash` or `sh`), or core operating system utilities.
 * **The Advantage:** If an attacker breaks into a container running a distroless image, they cannot run commands, download scripts, or pivot through your network because **there is no shell to execute commands**. This drops your image footprint down to the absolute bare minimum.
 
+<br>
+## Which image should I use?
+
+<div align="center">
+
+```text
+Ubuntu  -> Development & Debugging
+
+Alpine  -> Lightweight Production
+           when shell access may be needed
+
+Distroless -> Security-focused Production
+              where only the application should run
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------
+
+                 Development                Production
+                       |                         |
+                       v                         v
+
+      Ubuntu/Debian  ──►  Alpine  ──►  Distroless
+      (easy debug)       (small)       (smallest & most secure)
+
+      bash, apt          sh, apk       no shell, no package manager
+      curl, wget         lightweight   only app + runtime files
+
+```
+
+</div>
+
 ---
 
 ## 6. The Essential `.dockerignore` File
