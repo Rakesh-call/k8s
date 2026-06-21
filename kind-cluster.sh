@@ -49,5 +49,12 @@ echo "🔍 Verifying cluster nodes..."
 kubectl cluster-info --context kind-practice-cluster
 echo "-----------------------------------------------------"
 kubectl get nodes
-
+echo ""
+echo "---------------------------------------------------------"
+echo ""
 echo "⚡ Setup complete! Your 4-node cluster is ready for practice."
+echo ""
+echo "----------------------------------------------------------"
+echo ""
+echo "When you are done practicing and want to tear down the cluster to free up your machine's resources, simply run:"
+echo "kind delete cluster --name practice-cluster"
